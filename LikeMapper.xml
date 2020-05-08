@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="liketo">
+
+  <select id="countbyLike" resultType="int" parameterType="HashMap">
+   SELECT COUNT(likeno) as cnt
+   FROM liketo
+   WHERE boardno=#{boardno} AND mno=#{mno}
+  </select>
+
+  <insert id="create" parameterType="HashMap">
+    INSERT INTO liketo(likeno, boardno, mno, like_check) 
+    VALUES ((SELECT NVL(MAX(likeno), 0) + 1 as likeno FROM liketo),
+                 #{boardno}, #{mno}, 0)
+  </insert>
+    
+  <update id="like_check" parameterType="HashMap">
+    UPDATE liketo
+    SET like_check = like_check + 1 
+    WHERE mno=#{mno} AND boardno=#{boardno}
+  </update>
+  
+  <update id="like_check_cancel" parameterType="HashMap">
+    UPDATE liketo
+    SET like_check = 0
+    WHERE mno=#{mno} AND boardno=#{boardno}
+  </update>
+  
+  <select id="read" resultType="LiketoVO" parameterType="HashMap">
+    SELECT likeno, boardno, mno, like_check 
+    FROM liketo
+    WHERE boardno=#{boardno} AND mno=#{mno}
+  </select>
+  
+  <delete id="deletebyBoardno" parameterType="int">
+    DELETE FROM liketo
+    WHERE boardno=#{boardno}
+  </delete>
+  
+  <delete id="deletebyMno" parameterType="int">
+    DELETE FROM liketo
+    WHERE mno=#{mno}
+  </delete>
+  
+</mapper>

@@ -1,0 +1,8 @@
+CREATE TABLE liketo(
+    likeno                      NUMBER(5)    NOT NULL PRIMARY KEY, 
+    boardno                         NUMBER(7)    NOT NULL,    
+    mno                             NUMBER(6)    NOT NULL,
+    like_check                        NUMBER(5)   DEFAULT 0 NULL,
+    FOREIGN KEY (mno) REFERENCES member (mno),
+    FOREIGN KEY (boardno) REFERENCES board (boardno)
+);
