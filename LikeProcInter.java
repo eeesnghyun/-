@@ -1,28 +1,35 @@
- /* °Ô½ÃÆÇÀÇ ÁÁ¾Æ¿ä ¹øÈ£°¡ ÀÖ´ÂÁö Ä«¿îÆ® */
+package dev.mvc.liketo;
+
+import java.util.HashMap;
+
+public interface LiketoProcInter {
+  
+  /* ê²Œì‹œíŒì˜ ì¢‹ì•„ìš” ë²ˆí˜¸ê°€ ìˆëŠ”ì§€ ì¹´ìš´íŠ¸ */
   public int countbyLike(HashMap hashMap);
   
-  /* ÁÁ¾Æ¿ä ¹øÈ£ µî·Ï */
+  /* ì¢‹ì•„ìš” ë²ˆí˜¸ ë“±ë¡ */
   public int create(HashMap hashMap);
   
   /**
-   * ÁÁ¾Æ¿ä Ã¼Å© ¿©ºÎ (0 -> 1)
+   * ì¢‹ì•„ìš” ì²´í¬ ì—¬ë¶€ (0 -> 1)
    * @param hashMap
    * @return
    */
   public int like_check(HashMap hashMap);
   
   /**
-   * ÁÁ¾Æ¿ä Ã¼Å© ¿©ºÎ (1 -> 0)
+   * ì¢‹ì•„ìš” ì²´í¬ ì—¬ë¶€ (1 -> 0)
    * @param hashMap
    * @return
    */
   public int like_check_cancel(HashMap hashMap);
   
-  /* Á¶È¸ */
+  /* ì¡°íšŒ */
   public LiketoVO read(HashMap hashMap);
  
-  /* °Ô½ÃÆÇÀÇ ÁÁ¾Æ¿ä »èÁ¦ */
+  /* ê²Œì‹œíŒì˜ ì¢‹ì•„ìš” ì‚­ì œ */
   public int deletebyBoardno(int boardno);
   
-  /* È¸¿øÀÇ ÁÁ¾Æ¿ä »èÁ¦ */
-  public int deletebyMno(int mno);
+  /* íšŒì›ì˜ ì¢‹ì•„ìš” ì‚­ì œ */
+  public int deletebyMno(int mno); 
+}
