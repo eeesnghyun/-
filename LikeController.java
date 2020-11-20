@@ -1,4 +1,37 @@
-@ResponseBody
+package dev.mvc.liketo;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import javax.servlet.http.HttpSession;
+
+import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import dev.mvc.board.BoardProcInter;
+import dev.mvc.board.BoardVO;
+
+@Controller
+public class LiketoCont {
+  
+  @Autowired
+  @Qualifier("dev.mvc.liketo.LiketoProc")
+  private LiketoProcInter liketoProc = null;
+
+  @Autowired
+  @Qualifier("dev.mvc.board.BoardProc")
+  private BoardProcInter boardProc = null;
+  
+  public LiketoCont() {
+    //System.out.println("--> liketoCont() created");
+  }
+  
+  @ResponseBody
   @RequestMapping(value="/liketo/like.do", method=RequestMethod.GET, produces="text/plain;charset=UTF-8")
   public String like(int boardno, HttpSession session){
     //System.out.println("--> like() created");
@@ -12,26 +45,26 @@
     LiketoVO liketoVO = liketoProc.read(hashMap);
     
     BoardVO boardVO = boardProc.read(boardno);
-    int like_cnt = boardVO.getLike_cnt();     //°Ô½ÃÆÇÀÇ ÁÁ¾Æ¿ä Ä«¿îÆ®
+    int like_cnt = boardVO.getLike_cnt();     //ê²Œì‹œíŒì˜ ì¢‹ì•„ìš” ì¹´ìš´íŠ¸
     int like_check = 0;
-    like_check = liketoVO.getLike_check();    //ÁÁ¾Æ¿ä Ã¼Å© °ª
+    like_check = liketoVO.getLike_check();    //ì¢‹ì•„ìš” ì²´í¬ ê°’
     
     if(liketoProc.countbyLike(hashMap)==0){
       liketoProc.create(hashMap);
     }
       
     if(like_check == 0) {
-      msgs.add("ÁÁ¾Æ¿ä!");
+      msgs.add("ì¢‹ì•„ìš”!");
       liketoProc.like_check(hashMap);
       like_check++;
       like_cnt++;
-      boardProc.like_cnt_up(boardno);   //ÁÁ¾Æ¿ä °¹¼ö Áõ°¡
+      boardProc.like_cnt_up(boardno);   //ì¢‹ì•„ìš” ê°¯ìˆ˜ ì¦ê°€
     } else {
-      msgs.add("ÁÁ¾Æ¿ä Ãë¼Ò");
+      msgs.add("ì¢‹ì•„ìš” ì·¨ì†Œ");
       liketoProc.like_check_cancel(hashMap);
       like_check--;
       like_cnt--;
-      boardProc.like_cnt_down(boardno);   //ÁÁ¾Æ¿ä °¹¼ö °¨¼Ò
+      boardProc.like_cnt_down(boardno);   //ì¢‹ì•„ìš” ê°¯ìˆ˜ ê°ì†Œ
     }
     obj.put("boardno", liketoVO.getBoardno());
     obj.put("like_check", like_check);
@@ -40,3 +73,5 @@
     
     return obj.toJSONString();
   }
+ 
+}
