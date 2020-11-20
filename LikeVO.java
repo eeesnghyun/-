@@ -1,3 +1,6 @@
+package dev.mvc.liketo;
+
+public class LiketoVO {
   /*likeno                      NUMBER(5)    NOT NULL PRIMARY KEY, 
   boardno                         NUMBER(5)    NOT NULL,    
   mno                             NUMBER(6)    NOT NULL,
@@ -35,4 +38,4 @@
   public void setLike_check(int like_check) {
     this.like_check = like_check;
   }
-  
+}
