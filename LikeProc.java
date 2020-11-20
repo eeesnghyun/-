@@ -1,3 +1,14 @@
+package dev.mvc.liketo;
+
+import java.util.HashMap;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
+@Component("dev.mvc.liketo.LiketoProc")
+public class LiketoProc implements LiketoProcInter {
+
   @Autowired
   @Qualifier("dev.mvc.liketo.LiketoDAO")
   private LiketoDAOInter liketoDAO = null;
@@ -47,3 +58,4 @@
     int count = liketoDAO.deletebyMno(mno);
     return count;
   }
+}
