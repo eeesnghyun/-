@@ -1,3 +1,14 @@
+package dev.mvc.liketo;
+
+import java.util.HashMap;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+@Repository("dev.mvc.liketo.LiketoDAO")
+public class LiketoDAO implements LiketoDAOInter {
+
   @Autowired
   private SqlSessionTemplate mybatis;
   
@@ -46,3 +57,7 @@
     int count = mybatis.delete("liketo.deletebyMno", mno);
     return count;
   }
+
+  
+
+}
